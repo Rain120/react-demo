@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>React</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+      var TestBtn = React.createClass({
+        handleClick: function(event) {
+          var tipDOM = ReactDOM.findDOMNode(this.refs.tip);
+
+          if (tipDOM.style.display === 'none') {
+            tipDOM.style.display = 'inline';
+          } else {
+            tipDOM.style.display = 'none';
+          }
+
+          event.stopPropagation();
+          event.preventDefault();
+        },
+        render: function() {
+          return (
+            <div>
+              <button onClick={this.handleClick}>Hidden/Show</button><span ref="tip">TestBtn</span>
+            </div>
+          );
+        }
+      });
+
+      var TextInput = React.createClass({
+        getInitialState: function() {
+          return ({
+            inputContent: ''
+          });
+        },
+        changeHandler: function(event) {
+          this.setState({
+            inputContent: event.target.value
+          });
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        render: function() {
+          return (
+            <div>
+              <input type="text" onChange={this.changeHandler} />
+              <span>{this.state.inputContent}</span>
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <div>
+          <TestBtn/>
+          <TextInput/>
+        </div>,
+        document.getElementById("root")
+      );
+    </script>
+    
+</body>
+
+</html>
